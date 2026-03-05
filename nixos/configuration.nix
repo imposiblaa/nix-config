@@ -96,6 +96,11 @@
       enable = true;
       device = "nodev";
       efiSupport = true;
+
+      useOSProber = true;
+
+      fontSize = 96;
+      gfxmodeEfi = "1280x1024";
     };
   };
 
@@ -105,17 +110,28 @@
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   time.timeZone = "America/Los_Angeles";
+  time.hardwareClockInLocalTime = true;
 
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
   };
 
-  #services.libinput.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        FastConnectable = true;
+      };
+    };
+  };
+
 
   users.users.cn = {
     isNormalUser = true;
@@ -137,6 +153,8 @@
   ];
 
   services.displayManager.ly.enable = true;
+
+  services.udisks2.enable = true;
 
 
   programs.gnupg.agent = {

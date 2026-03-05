@@ -19,6 +19,7 @@
     # ./nvim.nix
     #../modules/home-manager/awesome.nix
     ../modules/home-manager/hyprland.nix
+    ../modules/home-manager/freecad.nix
   ];
 
   nixpkgs = {
@@ -53,7 +54,24 @@
     packages = [ 
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.brave
+      pkgs.sxiv
     ];
+  };
+
+  programs.git = {
+    enable = true;
+    userEmail = "imposiblaa@gmail.com";
+    userName = "Colin Nelson";
+  };
+
+  programs.ssh.enable = true;
+
+
+
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    tray = "always";
   };
 
 
@@ -65,7 +83,6 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
