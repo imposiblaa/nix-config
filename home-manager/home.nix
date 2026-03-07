@@ -20,6 +20,7 @@
     #../modules/home-manager/awesome.nix
     ../modules/home-manager/hyprland.nix
     ../modules/home-manager/freecad.nix
+    ../modules/home-manager/vscode.nix
   ];
 
   nixpkgs = {
