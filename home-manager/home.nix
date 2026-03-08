@@ -59,6 +59,8 @@
     ];
   };
 
+  stylix.targets.vscode.enable = false;
+
   programs.git = {
     enable = true;
     userEmail = "imposiblaa@gmail.com";

@@ -25,5 +25,6 @@
 
     homeManagerIntegration.autoImport = true;
     homeManagerIntegration.followSystem = true;
+
   }; 
 }
