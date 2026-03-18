@@ -140,6 +140,9 @@
     packages = with pkgs; [
       tree
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID1rmrr/GBEXRgr2WTRu+bRBtH+SXnwCq6JdhCIbt9gO claw@openclaw"
+    ];
   };
 
 
@@ -163,7 +166,16 @@
     enableSSHSupport = true;
   };
 
-  services.openssh.enable = false;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+    };
+  }; 
+
+  services.tailscale = {
+    enable = true;
+  };
 
   networking.firewall.enable = false;
 

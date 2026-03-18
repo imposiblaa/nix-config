@@ -19,6 +19,7 @@
     # ./nvim.nix
     #../modules/home-manager/awesome.nix
     ../modules/home-manager/hyprland.nix
+    ../modules/home-manager/ags.nix
     ../modules/home-manager/freecad.nix
     ../modules/home-manager/vscode.nix
   ];
@@ -58,8 +59,6 @@
       pkgs.sxiv
     ];
   };
-
-  stylix.targets.vscode.enable = false;
 
   programs.git = {
     enable = true;

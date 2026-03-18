@@ -1,0 +1,157 @@
+// Gruvbox dark color palette
+$bg:     #282828;
+$bg1:    #3c3836;
+$bg2:    #504945;
+$bg3:    #665c54;
+$fg:     #ebdbb2;
+$fg1:    #d5c4a1;
+$yellow: #d79921;
+$orange: #d65d0e;
+$red:    #cc241d;
+$red-br: #fb4934;
+$green:  #98971a;
+$blue:   #458588;
+$blue-br:#83a598;
+$purple: #b16286;
+$aqua:   #689d6a;
+$gray:   #928374;
+
+// Spacing
+$radius: 8px;
+$padding: 2px 10px;
+$margin: 3px 2px;
+$font-size: 13px;
+$bar-height: 36px;
+
+* {
+  font-family: "JetBrainsMono Nerd Font Mono", monospace;
+  font-size: $font-size;
+  min-height: 0;
+  color: $fg;
+}
+
+.bar {
+  background: alpha($bg, 0.90);
+  border-radius: $radius;
+  border: 1px solid $bg2;
+  padding: 0 4px;
+  min-height: $bar-height;
+
+  > centerbox {
+    margin: 2px 0;
+  }
+}
+
+// ======== Workspaces ========
+.workspaces {
+  padding: 0 4px;
+
+  .workspace {
+    border-radius: 6px;
+    padding: 0 8px;
+    min-width: 28px;
+    min-height: 22px;
+    background: transparent;
+    color: $bg3;
+    border: none;
+    transition: all 0.15s ease;
+
+    label {
+      color: inherit;
+    }
+
+    &:hover {
+      background: $bg2;
+      color: $fg1;
+    }
+
+    &.occupied {
+      color: $fg1;
+      background: $bg1;
+    }
+
+    &.active {
+      background: $blue;
+      color: $bg;
+      font-weight: bold;
+    }
+  }
+}
+
+// ======== Media ========
+.media {
+  padding: $padding;
+  border-radius: $radius;
+  background: $bg1;
+
+  .media-text {
+    color: $aqua;
+    font-style: italic;
+  }
+}
+
+// ======== System Info ========
+.system-info {
+  padding: 0;
+}
+
+.pill {
+  border-radius: $radius;
+  padding: $padding;
+  margin: $margin;
+  background: $bg1;
+  min-height: 22px;
+
+  label {
+    color: $fg;
+  }
+
+  &.weather label {
+    color: $yellow;
+  }
+
+  &.cpu label {
+    color: $green;
+  }
+
+  &.ram label {
+    color: $blue-br;
+  }
+
+  &.clock label {
+    color: $fg;
+    font-weight: bold;
+  }
+}
+
+// ======== Battery ========
+.battery {
+  label { color: $fg; }
+
+  &.charging label {
+    color: $green;
+  }
+
+  &.warning label {
+    color: $yellow;
+  }
+
+  &.critical label {
+    color: $red-br;
+    animation: blink 0.8s linear infinite alternate;
+  }
+}
+
+@keyframes blink {
+  to { opacity: 0.4; }
+}
+
+// ======== Volume ========
+.volume label {
+  color: $purple;
+}
+
+// ======== Network ========
+.network label {
+  color: $blue;
+}
