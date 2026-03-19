@@ -1,12 +1,10 @@
-import app from "ags/gtk4/app"
+import { App } from "astal/gtk4"
 import style from "./style.scss"
 import Bar from "./bar/Bar"
 
-const monitors = [0, 1]
-
-app.start({
+App.start({
   css: style,
   main() {
-    monitors.forEach((monitor) => Bar(monitor))
+    App.get_monitors().map(Bar)
   },
 })
