@@ -50,17 +50,25 @@ $aqua:    #689d6a;
 }
 
 .system-info {
-  label {
-    background: $bg1;
+  .pill {
     border-radius: 6px;
     padding: 2px 8px;
     margin: 2px;
+    border: none;
+    background: $bg1;
+
+    &:hover {
+      background: $bg2;
+    }
+
+    label { color: inherit; }
+    image { color: inherit; }
   }
 
-  .cpu { color: $green; }
-  .ram { color: $blue; }
-  .volume { color: $yellow; }
-  .battery { color: $orange; }
-  .clock { color: $fg; font-weight: bold; }
-  .weather { color: $aqua; }
+  .cpu-pill     { color: $green; }
+  .ram-pill     { color: $blue; }
+  .volume-pill  { color: $yellow; }
+  .battery-pill { color: $orange; }
+  .clock-pill   { color: $fg; font-weight: bold; }
+  .weather-pill { color: $aqua; }
 }
