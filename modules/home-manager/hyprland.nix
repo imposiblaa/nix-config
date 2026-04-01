@@ -190,7 +190,7 @@
         "systemctl --user restart hyprpaper.service"
         "hyprctl plugin load ${inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces}/lib/libsplit-monitor-workspaces.so"
         # AGS v2 bar (replaces waybar)
-        "ags run ~/.config/ags/app.ts"
+        "ags run --gtk4 ~/.config/ags/app.ts"
         # waybar kept as fallback — remove once AGS is confirmed stable
         # "waybar"
         "hyprpaper"

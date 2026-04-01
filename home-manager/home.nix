@@ -57,6 +57,7 @@
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.brave
       pkgs.sxiv
+      pkgs.claude-code
     ];
   };
 
