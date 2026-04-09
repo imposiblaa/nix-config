@@ -67,7 +67,7 @@
         inherit pkgs;
         extraSpecialArgs = {inherit inputs;};
         modules = [
-          stylix.homeManagerModules.stylix
+          stylix.homeModules.stylix
           ./home-manager/home.nix
           # Stylix config for standalone HM (mirrors nixos/stylix.nix)
           {

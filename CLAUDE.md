@@ -10,7 +10,7 @@ sudo nixos-rebuild switch --flake .#Chip
 # or: ./update.sh
 
 # Home Manager rebuild (no sudo)
-nix shell nixpkgs#home-manager --command home-manager switch --flake .#cn@Chip
+home-manager switch --flake .#cn@Chip
 # or: ./hmrebuild.sh
 
 # Format nix files

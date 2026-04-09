@@ -65,11 +65,14 @@
 
   programs.git = {
     enable = true;
-    userEmail = "imposiblaa@gmail.com";
-    userName = "Colin Nelson";
+    settings.user.email = "imposiblaa@gmail.com";
+    settings.user.name = "Colin Nelson";
   };
 
-  programs.ssh.enable = true;
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+  };
 
 
 
