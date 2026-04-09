@@ -84,10 +84,6 @@
   wayland.windowManager.hyprland = {
     enable = true;
 
-    plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-    ];
-
     settings = {
       plugin = {
         split-monitor-workspaces = {
@@ -189,7 +185,6 @@
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user restart hyprpaper.service"
-        "hyprctl plugin load ${inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces}/lib/libsplit-monitor-workspaces.so"
         # AGS v2 bar (replaces waybar)
         "ags run --gtk4 ~/.config/ags/app.ts"
         # waybar kept as fallback — remove once AGS is confirmed stable
@@ -239,20 +234,7 @@
         "$mod SHIFT, up, movewindow, u"
         "$mod SHIFT, down, movewindow, d"
 
-        # Workspaces
-        "$mod, 1, split-workspace, 1"
-        "$mod, 2, split-workspace, 2"
-        "$mod, 3, split-workspace, 3"
-        "$mod, 4, split-workspace, 4"
-        "$mod, 5, split-workspace, 5"
-        "$mod, 6, split-workspace, 6"
-
-        "$mod SHIFT, 1, split-movetoworkspace, 1"
-        "$mod SHIFT, 2, split-movetoworkspace, 2"
-        "$mod SHIFT, 3, split-movetoworkspace, 3"
-        "$mod SHIFT, 4, split-movetoworkspace, 4"
-        "$mod SHIFT, 5, split-movetoworkspace, 5"
-        "$mod SHIFT, 6, split-movetoworkspace, 6"
+        # Workspaces — moved to extraConfig (after plugin load)
 
         # Screenshots
         ", Print, exec, grimblast copy area"
@@ -311,6 +293,27 @@
         "pin on, match:title ^(Picture-in-Picture)$"
       ];
     };
+
+    # Load plugin synchronously (not exec-once) so dispatchers are
+    # available before the bind lines that reference them.
+    extraConfig = let
+      pluginPath = "${inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces}/lib/libsplit-monitor-workspaces.so";
+    in ''
+      plugin = ${pluginPath}
+
+      bind = $mod, 1, split-workspace, 1
+      bind = $mod, 2, split-workspace, 2
+      bind = $mod, 3, split-workspace, 3
+      bind = $mod, 4, split-workspace, 4
+      bind = $mod, 5, split-workspace, 5
+      bind = $mod, 6, split-workspace, 6
+      bind = $mod SHIFT, 1, split-movetoworkspace, 1
+      bind = $mod SHIFT, 2, split-movetoworkspace, 2
+      bind = $mod SHIFT, 3, split-movetoworkspace, 3
+      bind = $mod SHIFT, 4, split-movetoworkspace, 4
+      bind = $mod SHIFT, 5, split-movetoworkspace, 5
+      bind = $mod SHIFT, 6, split-movetoworkspace, 6
+    '';
   };
 
   programs.waybar = {
