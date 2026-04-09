@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   services.xserver.xrandrHeads = [
     {
       output = "eDP-1";

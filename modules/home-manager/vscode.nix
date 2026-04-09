@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   stylix.targets.vscode.enable = false;
 
   home.packages = [

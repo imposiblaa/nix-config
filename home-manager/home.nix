@@ -52,8 +52,8 @@
   home = {
     username = "cn";
     homeDirectory = "/home/cn";
-   
-    packages = [ 
+
+    packages = [
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.brave
       pkgs.sxiv
@@ -74,14 +74,11 @@
     enableDefaultConfig = false;
   };
 
-
-
   services.udiskie = {
     enable = true;
     automount = true;
     tray = "always";
   };
-
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;

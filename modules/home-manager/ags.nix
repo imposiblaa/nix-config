@@ -1,6 +1,10 @@
-{ pkgs, lib, inputs, config, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  config,
+  ...
+}: let
   # Stylix color variables mapped to semantic SCSS names
   colors = config.lib.stylix.colors;
   colorsScss = pkgs.writeText "_colors.scss" ''
@@ -26,13 +30,14 @@ let
   '';
 
   # Build ags with all required GTK4 + astal libraries properly wrapped
-  agsWrapped = pkgs.runCommand "ags-wrapped" {
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    buildInputs = [];
-  } ''
-    mkdir -p $out/bin
-    makeWrapper ${pkgs.ags}/bin/ags $out/bin/ags \
-      --prefix GI_TYPELIB_PATH : "${lib.makeSearchPathOutput "lib" "lib/girepository-1.0" (with pkgs; [
+  agsWrapped =
+    pkgs.runCommand "ags-wrapped" {
+      nativeBuildInputs = [pkgs.makeWrapper];
+      buildInputs = [];
+    } ''
+      mkdir -p $out/bin
+      makeWrapper ${pkgs.ags}/bin/ags $out/bin/ags \
+        --prefix GI_TYPELIB_PATH : "${lib.makeSearchPathOutput "lib" "lib/girepository-1.0" (with pkgs; [
         gtk4
         gdk-pixbuf
         graphene
@@ -51,10 +56,9 @@ let
         astal.tray
         networkmanager
       ])}"
-  '';
-in
-{
-  home.packages = [ agsWrapped pkgs.blueman ];
+    '';
+in {
+  home.packages = [agsWrapped pkgs.blueman];
 
   home.file.".config/ags" = {
     source = ../../ags;

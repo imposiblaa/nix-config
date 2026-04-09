@@ -1,9 +1,8 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   programs.rofi = {
     enable = true;
   };
-  
+
   programs.kitty = {
     enable = true;
     settings = {
@@ -11,7 +10,7 @@
       dynamic_background_opacity = true;
     };
   };
- 
+
   xsession.windowManager.i3 = {
     enable = true;
     config = {
@@ -19,12 +18,12 @@
       terminal = "kitty";
       menu = "rofi -show drun";
       bars = [];
-      
+
       gaps = {
         inner = 10;
         outer = 5;
       };
-      
+
       keybindings = {
         "Mod4+Return" = "exec kitty";
         "Mod4+d" = "exec rofi -show drun";
@@ -32,7 +31,10 @@
       };
 
       startup = [
-        { command = "systemctl --user restart polybar"; notification = false; }
+        {
+          command = "systemctl --user restart polybar";
+          notification = false;
+        }
       ];
     };
   };
@@ -42,7 +44,7 @@
     package = pkgs.picom-pijulius;
     backend = "glx";
     vSync = true;
-   
+
     settings = {
       corner-radius = 12;
       blur = {

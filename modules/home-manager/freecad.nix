@@ -1,9 +1,8 @@
-{ pkgs, ... }: 
-let
+{pkgs, ...}: let
   pythonEnv = pkgs.python3.withPackages (ps: [
     ps.scikit-learn
     ps.debugpy
-  ]);  
+  ]);
   vscodeSettings = pkgs.writeText "vscode-settings.json" (builtins.toJSON {
     "python.analysis.extraPaths" = [
       "${pkgs.freecad}/lib"
@@ -80,7 +79,7 @@ in {
       mkdir -p .vscode
       cp ${vscodeSettings} .vscode/settings.json
     '')
-    
+
     freecad
     calculix-ccx
     gmsh

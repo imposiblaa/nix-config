@@ -28,7 +28,6 @@
 
     ../modules/nixos/vim.nix
 
-
     ./hardware-configuration.nix
   ];
 
@@ -76,7 +75,6 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
-
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -95,11 +93,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "Chip"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   time.timeZone = "America/Los_Angeles";
   time.hardwareClockInLocalTime = true;
-
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -120,10 +117,9 @@
     };
   };
 
-
   users.users.cn = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     home = "/home/cn";
     packages = with pkgs; [
       tree
@@ -132,7 +128,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID1rmrr/GBEXRgr2WTRu+bRBtH+SXnwCq6JdhCIbt9gO claw@openclaw"
     ];
   };
-
 
   environment.systemPackages = [
     #pkgs.vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -147,7 +142,6 @@
 
   services.udisks2.enable = true;
 
-
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
@@ -161,7 +155,7 @@
     settings = {
       PermitRootLogin = "no";
     };
-  }; 
+  };
 
   services.tailscale = {
     enable = true;
@@ -170,12 +164,6 @@
   services.expressvpn.enable = true;
 
   networking.firewall.enable = false;
-
-
-
-
-
-
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -195,6 +183,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
-

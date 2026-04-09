@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   stylix = {
     enable = true;
     image = ../../wallpaper1.png;
@@ -9,7 +9,7 @@
       terminal = 0.8;
       popups = 0.9;
     };
-    
+
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
@@ -25,6 +25,5 @@
 
     homeManagerIntegration.autoImport = true;
     homeManagerIntegration.followSystem = true;
-
-  }; 
+  };
 }

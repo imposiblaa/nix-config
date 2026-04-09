@@ -1,5 +1,8 @@
-{ pkgs, inputs, ... }: {
-
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.kitty.enable = true;
   programs.wofi.enable = true;
   services.hyprpaper.enable = true;
@@ -369,7 +372,7 @@
             "11" = "5";
             "12" = "6";
           };
-          persistent-workspaces = { "*" = 6; };
+          persistent-workspaces = {"*" = 6;};
         };
 
         "hyprland/window" = {
@@ -390,7 +393,7 @@
             paused = "⏸";
           };
           max-length = 60;
-          ignored-players = [ "firefox" ];
+          ignored-players = ["firefox"];
         };
 
         "custom/weather" = {
@@ -419,7 +422,7 @@
           format-bluetooth = "󰂯 {volume}%";
           format-muted = "󰝟";
           format-icons = {
-            default = [ "󰕿" "󰖀" "󰕾" ];
+            default = ["󰕿" "󰖀" "󰕾"];
             headphone = "󰋋";
             headset = "󰋎";
           };
@@ -452,7 +455,7 @@
 
         "backlight" = {
           format = "{icon} {percent}%";
-          format-icons = [ "󰋙" "󰃝" "󰃟" "󰃠" ];
+          format-icons = ["󰋙" "󰃝" "󰃟" "󰃠"];
           on-scroll-up = "brightnessctl set +5%";
           on-scroll-down = "brightnessctl set 5%-";
         };
@@ -466,7 +469,7 @@
           format = "{icon} {capacity}%";
           format-charging = "󰂄 {capacity}%";
           format-plugged = "󰚥 {capacity}%";
-          format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
           tooltip-format = "{timeTo} — {power:.1f}W";
         };
 
