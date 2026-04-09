@@ -21,6 +21,7 @@
       vscjava.vscode-java-debug
       vscjava.vscode-gradle
       vscjava.vscode-java-dependency
+      jnoortheen.nix-ide
     ];
   };
 }
