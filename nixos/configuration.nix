@@ -166,6 +166,8 @@
     enableSSHSupport = true;
   };
 
+  programs.nix-ld.enable = true;
+
   services.openssh = {
     enable = true;
     settings = {
@@ -176,6 +178,8 @@
   services.tailscale = {
     enable = true;
   };
+
+  services.expressvpn.enable = true;
 
   networking.firewall.enable = false;
 

@@ -167,7 +167,7 @@
       dwindle = {
         pseudotile = true;
         preserve_split = true;
-        smart_split = true;
+        force_split = 2;
       };
 
       master = {
@@ -208,7 +208,7 @@
         "$mod, R, exec, wofi --show drun"
         "$mod, E, exec, kitty -e yazi"
         "$mod, B, exec, brave"
-        "$mod, L, exec, hyprlock"
+        "$mod, Escape, exec, hyprlock"
 
         # Window management
         "$mod, C, killactive,"
@@ -288,7 +288,27 @@
         "$mod, mouse:273, resizewindow"
       ];
 
-      # Window rules — add back once we confirm correct syntax for Hyprland 0.53
+      windowrule = [
+        # Float dialog / picker windows
+        "float on, match:title ^(Open)$"
+        "float on, match:title ^(Save)$"
+        "float on, match:title ^(Open File)(.*)$"
+        "float on, match:title ^(Save File)(.*)$"
+        "float on, match:title ^(Choose)(.*)$"
+        "float on, match:title ^(Confirm)(.*)$"
+        # Float desktop portal dialogs
+        "float on, match:class ^(xdg-desktop-portal-gtk)$"
+        "float on, match:class ^(xdg-desktop-portal-hyprland)$"
+        # Float utility apps
+        "float on, match:class ^(pavucontrol)$"
+        "float on, match:class ^(nm-connection-editor)$"
+        "float on, match:class ^(blueman-manager)$"
+        "float on, match:class ^(.blueman-manager-wrapped)$"
+        "float on, match:class ^(org.gnome.Calculator)$"
+        # Float picture-in-picture
+        "float on, match:title ^(Picture-in-Picture)$"
+        "pin on, match:title ^(Picture-in-Picture)$"
+      ];
     };
   };
 

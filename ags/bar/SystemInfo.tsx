@@ -1,44 +1,68 @@
-import { Variable, bind } from "astal"
+import { Variable, bind, Binding } from "astal"
 import { Gtk } from "astal/gtk4"
-import Battery from "gi://AstalBattery"
 import Wp from "gi://AstalWp"
 import Network from "gi://AstalNetwork"
+import Bluetooth from "gi://AstalBluetooth"
+import { openPopup, activePopup } from "../popups/popupManager"
+import { Icons, batIcon, volIcon, wifiIcon } from "../icons"
 
-const battery = Battery.get_default()
 const audio = Wp.get_default()
 const speaker = audio?.get_default_speaker() ?? null
+const network = Network.get_default()
+const wifi = network.get_wifi()
+const bt = Bluetooth.get_default()
 
 const clock = Variable("").poll(1000, "date +'%H:%M'")
-const weather = Variable("...").poll(1800000, "curl -s 'wttr.in/?format=%c+%t' 2>/dev/null || echo '?'")
+const weather = Variable("...").poll(1800000, "curl -s 'wttr.in/?format=%t' 2>/dev/null || echo '?'")
 const cpu = Variable("").poll(3000, ["bash", "-c", "top -bn1 | grep 'Cpu' | awk '{print int($2+$4)}'"])
 const ram = Variable("").poll(5000, ["bash", "-c", "free -h | awk '/^Mem/ {print $3}'"])
+const bat = Variable({ pct: 0, charging: false }).poll(
+  5000,
+  ["bash", "-c", "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null && echo '|||' && cat /sys/class/power_supply/BAT*/status 2>/dev/null"],
+  (out: string) => {
+    const [capStr, statusStr] = out.trim().split("|||").map(s => s.trim())
+    const pct = parseInt(capStr || "0", 10)
+    const charging = (statusStr || "").toLowerCase() === "charging"
+    return { pct, charging }
+  }
+)
 
-function batIconName(pct: number, charging: boolean): string {
-  if (charging) return "battery-good-charging-symbolic"
-  if (pct > 0.9) return "battery-full-symbolic"
-  if (pct > 0.6) return "battery-good-symbolic"
-  if (pct > 0.3) return "battery-low-symbolic"
-  return "battery-caution-symbolic"
-}
+function Pill({ icon, text, popupName, pillClass, maxWidthChars, ellipsize }: {
+  icon: string | Binding<string>
+  text: string | Binding<string>
+  popupName: string
+  pillClass: string
+  maxWidthChars?: number
+  ellipsize?: number
+}) {
+  const classes = bind(activePopup).as((ap: string) =>
+    ap === popupName
+      ? ["pill", pillClass, "pill-active"]
+      : ["pill", pillClass]
+  )
 
-function volIconName(vol: number, muted: boolean): string {
-  if (muted) return "audio-volume-muted-symbolic"
-  if (vol > 0.66) return "audio-volume-high-symbolic"
-  if (vol > 0.33) return "audio-volume-medium-symbolic"
-  return "audio-volume-low-symbolic"
+  return (
+    <button cssClasses={classes} onClicked={() => openPopup(popupName)}>
+      <box>
+        <box cssClasses={["pill-icon"]}>
+          <label label={icon} />
+        </box>
+        <box cssClasses={["pill-text"]}>
+          <label
+            label={text}
+            maxWidthChars={maxWidthChars ?? -1}
+            ellipsize={ellipsize ?? 0}
+          />
+        </box>
+      </box>
+    </button>
+  )
 }
 
 export default function SystemInfo() {
-  const batIcon = battery
-    ? bind(battery, "percentage").as((_p: number) => batIconName(battery.get_percentage(), battery.get_charging()))
-    : Variable("battery-full-symbolic")()
-  const batLabel = battery
-    ? bind(battery, "percentage").as((p: number) => `${Math.round(p * 100)}%`)
-    : Variable("")()
-
-  const volIcon = speaker
-    ? bind(speaker, "volume").as((v: number) => volIconName(v, speaker.get_mute?.() ?? false))
-    : Variable("audio-volume-medium-symbolic")()
+  const volIconBind = speaker
+    ? bind(speaker, "volume").as((v: number) => volIcon(v, speaker.get_mute?.() ?? false))
+    : Variable(Icons.volume.medium)()
   const volLabel = speaker
     ? bind(speaker, "volume").as((v: number) => `${Math.round(v * 100)}%`)
     : Variable("--")()
@@ -46,50 +70,78 @@ export default function SystemInfo() {
   return (
     <box cssClasses={["system-info"]} spacing={4}>
 
-      {/* Weather — wttr.in provides real emoji, no icon needed */}
-      <button cssClasses={["pill", "weather-pill"]}>
-        <label label={weather()} />
-      </button>
+      {/* Weather */}
+      <Pill
+        icon={Icons.weather}
+        text={weather()}
+        popupName="weather-popup"
+        pillClass="weather-pill"
+      />
 
       {/* CPU */}
-      <button cssClasses={["pill", "cpu-pill"]}>
-        <box spacing={4}>
-          <image iconName="computer-symbolic" pixelSize={14} />
-          <label label={cpu().as((c: string) => `${c}%`)} />
-        </box>
-      </button>
+      <Pill
+        icon={Icons.cpu}
+        text={cpu().as((c: string) => `${c}%`)}
+        popupName="system-popup"
+        pillClass="cpu-pill"
+      />
 
       {/* RAM */}
-      <button cssClasses={["pill", "ram-pill"]}>
-        <box spacing={4}>
-          <image iconName="drive-harddisk-symbolic" pixelSize={14} />
-          <label label={ram()} />
-        </box>
-      </button>
+      <Pill
+        icon={Icons.ram}
+        text={ram()}
+        popupName="system-popup"
+        pillClass="ram-pill"
+      />
+
+      {/* WiFi */}
+      {wifi ? (
+        <Pill
+          icon={bind(wifi, "strength").as((s: number) => wifiIcon(s))}
+          text={bind(wifi, "ssid").as((s: string) => s || "Off")}
+          popupName="network-popup"
+          pillClass="network-pill"
+          maxWidthChars={10}
+          ellipsize={3}
+        />
+      ) : null}
+
+      {/* Bluetooth */}
+      <Pill
+        icon={Icons.bluetooth}
+        text={bind(bt, "devices").as((devs: any[]) => {
+          const connected = devs.filter((d: any) => d.get_connected())
+          return connected.length > 0 ? connected[0].get_alias() : "Off"
+        })}
+        popupName="bluetooth-popup"
+        pillClass="bluetooth-pill"
+        maxWidthChars={10}
+        ellipsize={3}
+      />
 
       {/* Volume */}
-      <button cssClasses={["pill", "volume-pill"]}>
-        <box spacing={4}>
-          <image iconName={volIcon} pixelSize={14} />
-          <label label={volLabel} />
-        </box>
-      </button>
+      <Pill
+        icon={volIconBind}
+        text={volLabel}
+        popupName="volume-popup"
+        pillClass="volume-pill"
+      />
 
       {/* Battery */}
-      <button cssClasses={["pill", "battery-pill"]}>
-        <box spacing={4}>
-          <image iconName={batIcon} pixelSize={14} />
-          <label label={batLabel} />
-        </box>
-      </button>
+      <Pill
+        icon={bat().as(b => batIcon(b.pct, b.charging))}
+        text={bat().as(b => `${b.pct}%`)}
+        popupName="battery-popup"
+        pillClass="battery-pill"
+      />
 
       {/* Clock */}
-      <button cssClasses={["pill", "clock-pill"]}>
-        <box spacing={4}>
-          <image iconName="alarm-symbolic" pixelSize={14} />
-          <label label={clock()} />
-        </box>
-      </button>
+      <Pill
+        icon={Icons.clock}
+        text={clock()}
+        popupName="calendar-popup"
+        pillClass="clock-pill"
+      />
 
     </box>
   )

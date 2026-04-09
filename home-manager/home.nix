@@ -58,6 +58,8 @@
       pkgs.brave
       pkgs.sxiv
       pkgs.claude-code
+      pkgs.temurin-bin
+      pkgs.mpv
     ];
   };
 

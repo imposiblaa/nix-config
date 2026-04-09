@@ -14,14 +14,11 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT}
-      marginTop={4}
-      marginLeft={8}
-      marginRight={8}
       application={App}
     >
       <centerbox>
         <box halign={Gtk.Align.START} spacing={4}>
-          <Workspaces />
+          <Workspaces gdkmonitor={gdkmonitor} />
         </box>
         <box halign={Gtk.Align.CENTER}>
           <Media />
