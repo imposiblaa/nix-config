@@ -149,14 +149,9 @@ export default function SystemInfo() {
             <label label={Icons.cpu} />
           </box>
           <box cssClasses={["pill-text"]}>
-            <label label={cpu().as((c: string) => `${c}%`)} />
-          </box>
-          <box cssClasses={["pill-separator"]} />
-          <box cssClasses={["pill-icon", "ram-icon"]}>
-            <label label={Icons.ram} />
-          </box>
-          <box cssClasses={["pill-text"]}>
-            <label label={ram()} />
+            <label label={cpu().as((c: string) => {
+              return `C:${c}% M:${ram().get()}`
+            })} />
           </box>
         </box>
       </button>
