@@ -181,6 +181,10 @@
     border-left: 3px solid $blue;
     background: $bg1;
   }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba($bg2, 0.4);
+  }
 }
 
 // ── Detail rows ──────────────────────────────────────────────────────
@@ -193,6 +197,12 @@
 
 .detail-row {
   padding: 4px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba($bg2, 0.6);
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+  }
 }
 
 // ── Process list ─────────────────────────────────────────────────────
@@ -381,7 +391,7 @@ calendar > grid > label.day-number.today {
 .media-play-btn {
   padding: 8px 12px;
   background: $bg1;
-  border-radius: 50%;
+  border-radius: 6px;
 }
 
 .media-play-icon {

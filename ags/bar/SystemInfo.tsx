@@ -68,7 +68,7 @@ function MarqueeLabel({ text, maxChars = 15, speed = 300 }: {
   )
 }
 
-function Pill({ icon, text, popupName, pillClass, maxWidthChars, ellipsize, marquee }: {
+function Pill({ icon, text, popupName, pillClass, maxWidthChars, ellipsize, marquee, widthChars }: {
   icon: string | Binding<string>
   text: string | Binding<string>
   popupName: string
@@ -76,6 +76,7 @@ function Pill({ icon, text, popupName, pillClass, maxWidthChars, ellipsize, marq
   maxWidthChars?: number
   ellipsize?: number
   marquee?: boolean
+  widthChars?: number
 }) {
   const classes = bind(activePopup).as((ap: string) =>
     ap === popupName
@@ -97,6 +98,7 @@ function Pill({ icon, text, popupName, pillClass, maxWidthChars, ellipsize, marq
               label={text}
               maxWidthChars={maxWidthChars ?? -1}
               ellipsize={ellipsize ?? 0}
+              widthChars={widthChars ?? -1}
             />
           )}
         </box>
@@ -141,6 +143,7 @@ export default function SystemInfo() {
         text={volLabel}
         popupName="volume-popup"
         pillClass="volume-pill"
+        widthChars={4}
       />
 
       {/* WiFi */}
@@ -184,7 +187,7 @@ export default function SystemInfo() {
           <box cssClasses={["pill-text"]}>
             <label label={cpu().as((c: string) => {
               return `C:${c}% M:${ram().get()}`
-            })} />
+            })} widthChars={12} />
           </box>
         </box>
       </button>
@@ -195,6 +198,7 @@ export default function SystemInfo() {
         text={bat().as(b => `${b.pct}%`)}
         popupName="battery-popup"
         pillClass="battery-pill"
+        widthChars={4}
       />
 
       {/* Clock */}
@@ -226,13 +230,16 @@ export default function SystemInfo() {
                 cssClasses={["tray-item"]}
                 onClicked={(self: any) => {
                   const menu = item.create_menu()
-                  if (menu) {
-                    menu.set_parent(self)
+                  if (!menu) return
+                  menu.set_parent(self)
+                  if (typeof menu.popup === "function") {
                     menu.popup()
+                  } else if (typeof menu.set_visible === "function") {
+                    menu.set_visible(true)
                   }
                 }}
               >
-                <image gIcon={bind(item, "gicon")} />
+                <image gIcon={bind(item, "gicon")} pixelSize={18} />
               </button>
             ))
           )}
