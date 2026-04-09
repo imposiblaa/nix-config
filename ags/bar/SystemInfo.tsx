@@ -135,26 +135,13 @@ export default function SystemInfo() {
         marquee
       />
 
-      {/* CPU + RAM */}
-      <button
-        cssClasses={bind(activePopup).as((ap: string) =>
-          ap === "system-popup"
-            ? ["pill", "system-pill", "pill-active"]
-            : ["pill", "system-pill"]
-        )}
-        onClicked={() => openPopup("system-popup")}
-      >
-        <box>
-          <box cssClasses={["pill-icon", "cpu-icon"]}>
-            <label label={Icons.cpu} />
-          </box>
-          <box cssClasses={["pill-text"]}>
-            <label label={cpu().as((c: string) => {
-              return `C:${c}% M:${ram().get()}`
-            })} />
-          </box>
-        </box>
-      </button>
+      {/* Volume */}
+      <Pill
+        icon={volIconBind}
+        text={volLabel}
+        popupName="volume-popup"
+        pillClass="volume-pill"
+      />
 
       {/* WiFi */}
       {wifi ? (
@@ -181,13 +168,26 @@ export default function SystemInfo() {
         marquee
       />
 
-      {/* Volume */}
-      <Pill
-        icon={volIconBind}
-        text={volLabel}
-        popupName="volume-popup"
-        pillClass="volume-pill"
-      />
+      {/* CPU + RAM */}
+      <button
+        cssClasses={bind(activePopup).as((ap: string) =>
+          ap === "system-popup"
+            ? ["pill", "system-pill", "pill-active"]
+            : ["pill", "system-pill"]
+        )}
+        onClicked={() => openPopup("system-popup")}
+      >
+        <box>
+          <box cssClasses={["pill-icon", "cpu-icon"]}>
+            <label label={Icons.cpu} />
+          </box>
+          <box cssClasses={["pill-text"]}>
+            <label label={cpu().as((c: string) => {
+              return `C:${c}% M:${ram().get()}`
+            })} />
+          </box>
+        </box>
+      </button>
 
       {/* Battery */}
       <Pill
