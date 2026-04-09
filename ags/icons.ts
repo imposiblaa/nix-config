@@ -34,6 +34,18 @@ export const Icons = {
   speaker: "\u{F04C3}",      // 󰓃
   weather: "\u{F0590}",      // 󰖐
   monitor: "\u{F0379}",      // 󰍹
+  media: {
+    music: "\u{F0388}",      // 󰎨
+    play: "\u{F040A}",       // 󰐊
+    pause: "\u{F03E4}",      // 󰏤
+    next: "\u{F04AD}",       // 󰒭
+    prev: "\u{F04AE}",       // 󰒮
+  },
+  ethernet: "\u{F0200}",     // 󰈀
+  chevron: {
+    right: "\u{F0142}",      // 󰅂
+    left: "\u{F0141}",       // 󰅁
+  },
 }
 
 export function batIcon(pct: number, charging: boolean): string {

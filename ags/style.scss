@@ -37,11 +37,6 @@
   }
 }
 
-.media {
-  color: $aqua;
-  padding: 0 8px;
-}
-
 .system-info {
   .pill {
     border-radius: 3px;
@@ -61,7 +56,7 @@
     padding: 3px 8px;
 
     label {
-      font-size: 18px;
+      font-size: 20px;
     }
   }
 
@@ -74,25 +69,29 @@
   }
 
   // Per-pill accent colors on icon box
-  .cpu-pill .pill-icon       { background: $green;  label { color: $bg; } }
-  .ram-pill .pill-icon       { background: $blue;   label { color: $bg; } }
+  .system-pill .pill-icon.cpu-icon { background: $green;  label { color: $bg; } }
+  .system-pill .pill-icon.ram-icon { background: $blue;   label { color: $bg; } }
+  .system-pill .pill-separator {
+    min-width: 1px;
+    background: $bg2;
+    margin: 4px 0;
+  }
   .network-pill .pill-icon   { background: $blue;   label { color: $bg; } }
   .bluetooth-pill .pill-icon { background: $purple;  label { color: $bg; } }
   .volume-pill .pill-icon    { background: $yellow;  label { color: $bg; } }
   .battery-pill .pill-icon   { background: $orange;  label { color: $bg; } }
   .clock-pill .pill-icon     { background: $fg1;     label { color: $bg; } }
-  .weather-pill .pill-icon   { background: $aqua;    label { color: $bg; } }
+  .media-pill .pill-icon     { background: $aqua;    label { color: $bg; } }
 
   // Active pill state — whole pill becomes accent colored
   .pill-active {
-    &.cpu-pill       { background: $green;  .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
-    &.ram-pill       { background: $blue;   .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
+    &.system-pill    { background: $green;  .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } .pill-separator { background: rgba($bg, 0.3); } }
     &.network-pill   { background: $blue;   .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
     &.bluetooth-pill { background: $purple;  .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
     &.volume-pill    { background: $yellow;  .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
     &.battery-pill   { background: $orange;  .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
     &.clock-pill     { background: $fg1;     .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
-    &.weather-pill   { background: $aqua;    .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
+    &.media-pill     { background: $aqua;    .pill-text label { color: $bg; } .pill-icon { background: rgba($bg, 0.3); } }
 
     &:hover {
       opacity: 0.9;
@@ -104,6 +103,11 @@
 
 .popup-window {
   background: transparent;
+}
+
+.popup-positioner {
+  margin-top: 40px;
+  margin-right: 8px;
 }
 
 .popup-container {
@@ -122,7 +126,26 @@
   font-size: 16px;
   font-weight: bold;
   color: $fg;
+  padding-left: 8px;
+  border-left: 3px solid $fg1;
 }
+
+// Per-popup accent title colors
+.media-popup .popup-title     { border-left-color: $aqua;   color: $aqua;   }
+.system-popup .popup-title    { border-left-color: $green;  color: $green;  }
+.network-popup .popup-title   { border-left-color: $blue;   color: $blue;   }
+.bluetooth-popup .popup-title { border-left-color: $purple; color: $purple; }
+.volume-popup .popup-title    { border-left-color: $yellow; color: $yellow; }
+.battery-popup .popup-title   { border-left-color: $orange; color: $orange; }
+.calendar-popup .popup-title  { border-left-color: $fg1;    color: $fg;     }
+
+// Per-popup section label accents
+.media-popup .section-label     { color: $aqua;   }
+.system-popup .section-label    { color: $green;  }
+.network-popup .section-label   { color: $blue;   }
+.bluetooth-popup .section-label { color: $purple; }
+.volume-popup .section-label    { color: $yellow; }
+.battery-popup .section-label   { color: $orange; }
 
 .popup-header {
   margin-bottom: 4px;
@@ -270,7 +293,9 @@ switch {
 // ── Battery popup ────────────────────────────────────────────────────
 
 .battery-hero {
-  padding: 12px 0;
+  background: $bg1;
+  border-radius: 4px;
+  padding: 12px;
 }
 
 .battery-icon-large {
@@ -286,22 +311,18 @@ switch {
   font-size: 18px;
 }
 
-// ── Weather popup ────────────────────────────────────────────────────
+// ── Calendar ─────────────────────────────────────────────────────────
 
-.weather-hero {
-  padding: 12px 0;
+.clock-hero {
+  background: $bg1;
+  border-radius: 4px;
+  padding: 12px;
 }
 
-.weather-icon-large {
+.clock-time {
   font-size: 36px;
-}
-
-.weather-temp {
-  font-size: 24px;
   font-weight: bold;
 }
-
-// ── Calendar ─────────────────────────────────────────────────────────
 
 .calendar {
   background: $bg1;
@@ -333,4 +354,69 @@ calendar > grid > label.day-number.today {
 }
 
 .device-list {
+}
+
+// ── Media popup ─────────────────────────────────────────────────────
+
+.media-hero {
+  background: $bg1;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.media-icon-large {
+  font-size: 36px;
+  color: $aqua;
+}
+
+.media-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.media-controls {
+  padding: 8px 0;
+}
+
+.media-play-btn {
+  padding: 8px 12px;
+  background: $bg1;
+  border-radius: 50%;
+}
+
+.media-play-icon {
+  font-size: 24px;
+}
+
+// ── System tray ─────────────────────────────────────────────────────
+
+.tray-toggle {
+  border-radius: 3px;
+  padding: 0 4px;
+  background: $bg1;
+  border: none;
+
+  &:hover {
+    background: $bg2;
+  }
+}
+
+.tray-items {
+  padding: 0 2px;
+}
+
+.tray-item {
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  padding: 4px;
+
+  &:hover {
+    background: $bg1;
+  }
+
+  image {
+    min-width: 18px;
+    min-height: 18px;
+  }
 }

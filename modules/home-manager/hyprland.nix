@@ -100,6 +100,7 @@
       monitor = [
         "eDP-1, 3456x2160@60, 2560x720, 2"
         "DP-8, 2560x1440@60, 0x0, 1"
+        ", preferred, auto, 1"
       ];
 
       input = {

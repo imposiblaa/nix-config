@@ -11,7 +11,7 @@ const stats = Variable({ cpu: "", ram: "", swap: "", load: "", uptime: "", procs
     ram=$(free -h | awk '/^Mem/ {printf "%s / %s", $3, $2}')
     swap=$(free -h | awk '/^Swap/ {printf "%s / %s", $3, $2}')
     load=$(cat /proc/loadavg | awk '{print $1, $2, $3}')
-    uptime=$(uptime -p | sed 's/^up //')
+    uptime=$(uptime -p 2>/dev/null | sed 's/^up //'); [ -z "$uptime" ] && uptime=$(awk '{d=int($1/86400);h=int($1%86400/3600);m=int($1%3600/60); if(d>0) printf "%dd %dh %dm",d,h,m; else if(h>0) printf "%dh %dm",h,m; else printf "%dm",m}' /proc/uptime)
     procs=$(ps aux --sort=-%cpu | awk 'NR>1 && NR<=6 {printf "%s %s%% %s\\n", $11, $3, $4}')
     echo "$cpu|||$ram|||$swap|||$load|||$uptime|||$procs"
   `],

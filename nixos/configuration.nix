@@ -20,7 +20,6 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    inputs.home-manager.nixosModules.home-manager
 
     #../modules/nixos/awesomewm.nix
     ../modules/nixos/nvidia.nix
@@ -32,17 +31,6 @@
 
     ./hardware-configuration.nix
   ];
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    #sharedModules = [
-    #  inputs.stylix.homeManagerModules.stylix
-    #];
-    users.cn.imports = [
-      ../home-manager/home.nix
-    ];
-    #users.cn.home.stateVersion = "23.05";
-  };
 
   nixpkgs = {
     # You can add overlays here

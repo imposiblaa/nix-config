@@ -8,7 +8,7 @@ const POPUP_NAMES = [
   "battery-popup",
   "calendar-popup",
   "system-popup",
-  "weather-popup",
+  "media-popup",
 ]
 
 export const activePopup = Variable<string>("")

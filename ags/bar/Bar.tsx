@@ -1,7 +1,5 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4"
-import { Variable } from "astal"
 import Workspaces from "./Workspaces"
-import Media from "./Media"
 import SystemInfo from "./SystemInfo"
 
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -20,9 +18,8 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box halign={Gtk.Align.START} spacing={4}>
           <Workspaces gdkmonitor={gdkmonitor} />
         </box>
-        <box halign={Gtk.Align.CENTER}>
-          <Media />
-        </box>
+        <box halign={Gtk.Align.CENTER} />
+
         <box halign={Gtk.Align.END} spacing={4}>
           <SystemInfo />
         </box>

@@ -8,6 +8,7 @@ import { Icons, wifiIcon } from "../icons"
 export default function NetworkPopup() {
   const network = Network.get_default()
   const wifi = network.get_wifi()
+  const wired = network.get_wired()
   const scanning = Variable(false)
 
   function doScan() {
@@ -21,7 +22,7 @@ export default function NetworkPopup() {
     <PopupWindow name="network-popup">
       <box vertical cssClasses={["popup-content", "network-popup"]} spacing={8}>
         <box cssClasses={["popup-header"]} spacing={8}>
-          <label label="WiFi" cssClasses={["popup-title"]} hexpand halign={Gtk.Align.START} />
+          <label label="Network" cssClasses={["popup-title"]} hexpand halign={Gtk.Align.START} />
           {wifi ? (
             <switch
               active={bind(wifi, "enabled")}
@@ -33,11 +34,26 @@ export default function NetworkPopup() {
           ) : null}
         </box>
 
+        {/* Ethernet */}
+        {wired ? (
+          <box vertical spacing={4} cssClasses={["current-network"]}>
+            <label label="Ethernet" cssClasses={["section-label"]} halign={Gtk.Align.START} />
+            <box spacing={8} cssClasses={["device-row", "active"]}>
+              <label label={Icons.ethernet} />
+              <label
+                label={bind(wired, "speed").as((s: number) => s > 0 ? `Connected (${s} Mbps)` : "Connected")}
+                hexpand
+                halign={Gtk.Align.START}
+              />
+            </box>
+          </box>
+        ) : null}
+
         {wifi ? (
           <box vertical spacing={8}>
-            {/* Current connection */}
+            {/* Current WiFi connection */}
             <box vertical spacing={4} cssClasses={["current-network"]}>
-              <label label="Current Connection" cssClasses={["section-label"]} halign={Gtk.Align.START} />
+              <label label="WiFi" cssClasses={["section-label"]} halign={Gtk.Align.START} />
               <box spacing={8} cssClasses={["device-row", "active"]}>
                 <label label={bind(wifi, "strength").as((s: number) => wifiIcon(s))} />
                 <label
