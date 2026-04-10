@@ -195,7 +195,6 @@
         "hyprpaper"
         "mako"
         "hypridle"
-        "swayosd-server"
         "nm-applet --indicator"
       ];
 
@@ -317,6 +316,25 @@
       bind = $mod SHIFT, 5, split-movetoworkspace, 5
       bind = $mod SHIFT, 6, split-movetoworkspace, 6
     '';
+  };
+
+  systemd.user.services.swayosd-server = {
+    Unit = {
+      Description = "SwayOSD Server";
+      PartOf = ["graphical-session.target"];
+      After = ["graphical-session.target"];
+    };
+    Service = {
+      ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
+      Restart = "on-failure";
+      RestartSec = "3";
+      # Hyprland defaults to wayland-1; must be explicit since systemd user
+      # services don't inherit WAYLAND_DISPLAY from the compositor environment.
+      Environment = "WAYLAND_DISPLAY=wayland-1";
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
   };
 
   programs.waybar = {

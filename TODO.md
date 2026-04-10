@@ -5,9 +5,7 @@ A collection to system and home configurations which I run on my personal laptop
 ## TODO
 ----------------------------------
 ### Visual Improvements (all related to AGS)
-- Popups look bland, add some horizontal lines in places to seperate elements and break up flat grey boxes (between networks, bt devices, system info entries, etc.)
-- Fix pause button in media popup (it is an oval)
-- Create a fixed size for each pill (so that changing percentages doesn't move all the pills around)
+- None
 ----------------------------------
 ### Functional Improvements
 - System tray displays no icons and clicking buttons does nothing
