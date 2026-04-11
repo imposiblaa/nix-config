@@ -27,6 +27,7 @@
     ../modules/nixos/hyprland.nix
 
     ../modules/nixos/vim.nix
+    ../modules/nixos/eduroam.nix
 
     ./hardware-configuration.nix
   ];
@@ -96,7 +97,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   time.timeZone = "America/Los_Angeles";
-  time.hardwareClockInLocalTime = true;
+  time.hardwareClockInLocalTime = false;
 
   i18n.defaultLocale = "en_US.UTF-8";
 
