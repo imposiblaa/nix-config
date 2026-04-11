@@ -142,6 +142,11 @@
 
   services.udisks2.enable = true;
 
+  services.libinput = {
+    enable = true;
+    touchpad.accelProfile = "flat";
+  };
+
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
