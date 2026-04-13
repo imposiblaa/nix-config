@@ -2,6 +2,8 @@
   pythonEnv = pkgs.python3.withPackages (ps: [
     ps.scikit-learn
     ps.debugpy
+    ps.gmsh
+    ps.ax-platform
   ]);
   vscodeSettings = pkgs.writeText "vscode-settings.json" (builtins.toJSON {
     "python.analysis.extraPaths" = [
