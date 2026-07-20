@@ -85,7 +85,6 @@
       efiSupport = true;
 
       useOSProber = true;
-      saveDefault = true;
       default = "saved";
 
       fontSize = 96;
