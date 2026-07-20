@@ -17,8 +17,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    #../modules/home-manager/awesome.nix
-    ../modules/home-manager/hyprland.nix
+    ../modules/home-manager/hyprland
     ../modules/home-manager/ags.nix
     ../modules/home-manager/freecad.nix
     ../modules/home-manager/vscode.nix

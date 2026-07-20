@@ -85,6 +85,8 @@
       efiSupport = true;
 
       useOSProber = true;
+      saveDefault = true;
+      default = "saved";
 
       fontSize = 96;
       gfxmodeEfi = "1280x1024";

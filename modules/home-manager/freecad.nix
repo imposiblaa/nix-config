@@ -1,10 +1,13 @@
 {pkgs, ...}: let
-  pythonEnv = pkgs.python3.withPackages (ps: [
-    ps.scikit-learn
-    ps.debugpy
-    ps.gmsh
-    ps.ax-platform
-  ]);
+  pythonEnv = pkgs.python3.buildEnv.override {
+    extraLibs = with pkgs.python3Packages; [
+      scikit-learn
+      debugpy
+      gmsh
+      ax-platform
+    ];
+    ignoreCollisions = true;
+  };
   vscodeSettings = pkgs.writeText "vscode-settings.json" (builtins.toJSON {
     "python.analysis.extraPaths" = [
       "${pkgs.freecad}/lib"
@@ -31,13 +34,16 @@ in {
       case "$1" in
         --version|-V)
           exec ${pythonEnv}/bin/python --version ;;
-        -c)
-          exec ${pythonEnv}/bin/python "$@" ;;
-        --for-server)
+        -c|-m|--for-server)
           exec ${pythonEnv}/bin/python "$@" ;;
         /nix/store/*)
           exec ${pythonEnv}/bin/python "$@" ;;
       esac
+
+      # Forward VSCode extension scripts to plain Python (for intellisense)
+      if [[ "$1" == *"/.vscode/"* || "$1" == *"/ms-python/"* || "$1" == *"/vscode-pylance/"* ]]; then
+        exec ${pythonEnv}/bin/python "$@"
+      fi
 
       export OMP_NUM_THREADS=16
       export CCX_NPROC_EQUATION_SOLVER=16
