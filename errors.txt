@@ -1,0 +1,74 @@
+[cn@Chip:~/nix-config]$ ./update.sh 
+[sudo] password for cn: 
+warning: Git tree '/home/cn/nix-config' is dirty
+building the system configuration...
+warning: Git tree '/home/cn/nix-config' is dirty
+evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
+error:
+       … while calling the 'derivationStrict' builtin
+         at «nix-internal»/derivation-internal.nix:37:12:
+           36|
+           37|   strict = derivationStrict drvAttrs;
+             |            ^
+           38|
+
+       … while evaluating derivation 'nixos-system-Chip-26.11.20260720.f41c9ff'
+         whose name attribute is located at «github:nixos/nixpkgs/f41c9ffaf853d4ad778fa63e04e07e1604da94d0?narHash=sha256-LyQZ5U91OoIvQjSBvCGqL68qrxyPCR16Y/VASl%2BYTC0%3D»/pkgs/stdenv/generic/make-derivation.nix:651:11
+
+       … while evaluating attribute 'buildCommand' of derivation 'nixos-system-Chip-26.11.20260720.f41c9ff'
+         at «github:nixos/nixpkgs/f41c9ffaf853d4ad778fa63e04e07e1604da94d0?narHash=sha256-LyQZ5U91OoIvQjSBvCGqL68qrxyPCR16Y/VASl%2BYTC0%3D»/nixos/modules/system/activation/top-level.nix:63:7:
+           62|       allowSubstitutes = false;
+           63|       buildCommand = systemBuilder;
+             |       ^
+           64|
+
+       … while evaluating the option `environment.etc.dbus-1.source':
+
+       … while evaluating the option `environment.systemPackages':
+
+       … while evaluating definitions from `/nix/store/wbgs3haci5s72kafm3vyq4q69ibh4pbz-source/nixos/configuration.nix':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: 'neofetch' has been removed because it was unmaintained upstream. Consider using the updated fork 'neowofetch' provided by the 'hyfetch' package or the alternative 'fastfetch' instead.
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '.#nixosConfigurations."Chip".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+warning: Git tree '/home/cn/nix-config' is dirty
+evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
+evaluation warning: The default value of `wayland.windowManager.hyprland.configType` has changed from `"hyprlang"` to `"lua"`.
+                    You are currently using the legacy default (`"hyprlang"`) because `home.stateVersion` is less than "26.05".
+                    To silence this warning and keep legacy behavior, set:
+                      wayland.windowManager.hyprland.configType = "hyprlang";
+                    To adopt the new default behavior, set:
+                      wayland.windowManager.hyprland.configType = "lua";
+trace: warning: Relying on `home.pointerCursor` to enable cursor config generation is deprecated.
+Please update your configuration to explicitly set:
+
+  home.pointerCursor.enable = true;
+
+error:
+       … while calling the 'derivationStrict' builtin
+         at <nix/derivation-internal.nix>:37:12:
+           36|
+           37|   strict = derivationStrict drvAttrs;
+             |            ^
+           38|
+
+       … while evaluating derivation 'home-manager-generation'
+         whose name attribute is located at /nix/store/12b7r4mgwcplblgb6fmh9c4bsdplph28-source/pkgs/stdenv/generic/make-derivation.nix:651:11
+
+       … while evaluating attribute 'buildCommand' of derivation 'home-manager-generation'
+         at /nix/store/12b7r4mgwcplblgb6fmh9c4bsdplph28-source/pkgs/build-support/trivial-builders/default.nix:81:17:
+           80|         enableParallelBuilding = true;
+           81|         inherit buildCommand name;
+             |                 ^
+           82|         passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
+
+       … while evaluating the option `home.activation.installPackages.data':
+
+       … while evaluating definitions from `/nix/store/50d5z8ka5z5b7pg9wlj34rgfg1ksy01v-source/modules/home-environment.nix':
+
+       … while calculating requiredPythonModules for python3.14-ax-platform-1.3.1:
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: tensorflow-bin: unsupported configuration: x86_64-linux_314

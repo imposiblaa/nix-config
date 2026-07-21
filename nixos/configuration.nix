@@ -136,7 +136,7 @@
     pkgs.wget
     pkgs.git
     pkgs.killall
-    pkgs.neofetch
+    pkgs.fastfetch
     pkgs.htop
   ];
 

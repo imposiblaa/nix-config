@@ -51,6 +51,7 @@
   home = {
     username = "cn";
     homeDirectory = "/home/cn";
+    pointerCursor.enable = true;
 
     packages = [
       pkgs.nerd-fonts.jetbrains-mono

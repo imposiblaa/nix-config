@@ -1,6 +1,6 @@
 {pkgs, ...}: let
-  pythonEnv = pkgs.python3.buildEnv.override {
-    extraLibs = with pkgs.python3Packages; [
+  pythonEnv = pkgs.python312.buildEnv.override {
+    extraLibs = with pkgs.python312Packages; [
       scikit-learn
       debugpy
       gmsh
@@ -49,7 +49,7 @@ in {
       export CCX_NPROC_EQUATION_SOLVER=16
       export CCX_NPROC_RESULTS=16
       ulimit -s unlimited
-      MODULES="-M ${pythonEnv}/lib/${pkgs.python3.libPrefix}/site-packages"
+      MODULES="-M ${pythonEnv}/lib/${pkgs.python312.libPrefix}/site-packages"
 
       if [[ -n "$FREECAD_DEBUG" ]]; then
         BOOTSTRAP=$(mktemp /tmp/freecad-debug-XXXX.py)
