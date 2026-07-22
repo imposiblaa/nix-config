@@ -7,9 +7,18 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
+    python314 = prev.python314.override {
+      packageOverrides = pfinal: pprev: {
+        opencamlib = pprev.opencamlib.overrideAttrs (old: {
+          postPatch =
+            (old.postPatch or "")
+            + ''
+              substituteInPlace pyproject.toml \
+                --replace-fail "cmake.verbose = true" "build.verbose = true"
+            '';
+        });
+      };
+    };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
