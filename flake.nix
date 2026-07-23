@@ -15,10 +15,6 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
     hyprsplit.url = "github:shezdy/hyprsplit";
-    split-monitor-workspaces = {
-      url = "github:zjeffer/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
-    };
 
     stylix.url = "github:danth/stylix/release-26.05";
   };
@@ -29,7 +25,6 @@
     nixpkgs-unstable,
     home-manager,
     stylix,
-    split-monitor-workspaces,
     ...
   } @ inputs: let
     # Supported systems for your flake packages, shell, etc.
