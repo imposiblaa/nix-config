@@ -21,6 +21,7 @@
       vscjava.vscode-gradle
       vscjava.vscode-java-dependency
       jnoortheen.nix-ide
+      TheQtCompany.qt-qml
     ];
   };
 }

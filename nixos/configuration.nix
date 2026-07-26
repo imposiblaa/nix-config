@@ -28,6 +28,7 @@
 
     ../modules/nixos/vim.nix
     ../modules/nixos/eduroam.nix
+    ../modules/nixos/qs.nix
 
     ./hardware-configuration.nix
   ];

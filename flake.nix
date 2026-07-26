@@ -16,6 +16,11 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprsplit.url = "github:shezdy/hyprsplit";
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix.url = "github:danth/stylix/release-26.05";
   };
 
