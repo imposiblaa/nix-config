@@ -7,21 +7,34 @@
 
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      vscodevim.vim
-      ms-python.python
-      ms-python.debugpy
-      jdinhlife.gruvbox
-      anthropic.claude-code
-      redhat.java
-      vscjava.vscode-java-pack
-      vscjava.vscode-maven
-      vscjava.vscode-java-test
-      vscjava.vscode-java-debug
-      vscjava.vscode-gradle
-      vscjava.vscode-java-dependency
-      jnoortheen.nix-ide
-      TheQtCompany.qt-qml
-    ];
+
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+        ms-python.python
+        ms-python.debugpy
+        jdinhlife.gruvbox
+        anthropic.claude-code
+        redhat.java
+        vscjava.vscode-java-pack
+        vscjava.vscode-maven
+        vscjava.vscode-java-test
+        vscjava.vscode-java-debug
+        vscjava.vscode-gradle
+        vscjava.vscode-java-dependency
+        jnoortheen.nix-ide
+      ];
+
+      userSettings = {
+        "editor.tabSize" = 2;
+        "editor.detectIndentation" = false;
+
+        "workbench.colorTheme" = "Gruvbox Dark Hard";
+
+        "qt-qml.qmlls.customExePath" = "qmlls";
+        "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
+      };
+
+    };
   };
 }

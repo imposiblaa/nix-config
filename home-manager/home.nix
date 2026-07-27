@@ -21,6 +21,7 @@
     ../modules/home-manager/ags.nix
     ../modules/home-manager/freecad.nix
     ../modules/home-manager/vscode.nix
+    ../modules/home-manager/qs.nix
   ];
 
   nixpkgs = {
