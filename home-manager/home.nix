@@ -61,6 +61,8 @@
       pkgs.claude-code
       pkgs.temurin-bin
       pkgs.mpv
+      pkgs.zathura
+      pkgs.prismlauncher
     ];
   };
 
